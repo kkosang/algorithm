@@ -1,29 +1,27 @@
 import java.util.Scanner;
 import java.util.Stack;
 
-/* [#1] 괄호문자제거
+/* [#2] 괄호문자제거
 https://cote.inflearn.com/contest/10/problem/05-02
 * */
 public class No5_02 {
     public static String solution(String str) {
         String answer = "";
         Stack<Character> stack = new Stack<>();
+
         for (char x : str.toCharArray()) {
-            if (x == '(') {
-                stack.push(x);
-            } else if (x == ')') {
-                while (stack.peek() != '(')
-                    stack.pop();
-                stack.pop();
+            if (x == ')') {
+                while (stack.pop() != '(') ;
             } else {
-                stack.push(x);
+                stack.push(x); // 여는괄호거나 알파벳
             }
         }
-        while (!stack.isEmpty()){
-            answer += stack.pop();
+
+        for (int i = 0; i < stack.size(); i++) {
+            answer += stack.get(i);
         }
-        StringBuilder sb = new StringBuilder(answer).reverse();
-        return sb.toString();
+
+        return answer;
     }
 
     public static void main(String[] args) {
