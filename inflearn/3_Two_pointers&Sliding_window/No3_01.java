@@ -1,47 +1,64 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
-/* 두 배열 합치기
+/* [#2] 두 배열 합치기
 https://cote.inflearn.com/contest/10/problem/03-01
 * */
 public class No3_01 {
-    public static int[] solution(int n, int m, int a[], int b[]) {
-        int answer[] = new int[n + m];
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
 
-        int i = 0, j = 0, k = 0;
-
-        while (i < n && j < m) { // 공통부분
-            if (a[i] > b[j])
-                answer[k++] = b[j++];
-            else
-                answer[k++] = a[i++];
+        st = new StringTokenizer(br.readLine());
+        int sizeA = Integer.parseInt(st.nextToken());
+        int A[] = new int[sizeA];
+        st = new StringTokenizer(br.readLine());
+        for (int i = 0; i < sizeA; i++) {
+            A[i] = Integer.parseInt(st.nextToken());
         }
 
-        // 남은부분
-        while (i < n) {
-            answer[k++] = a[i++];
-        }
-        while (j < m) {
-            answer[k++] = b[j++];
+        st = new StringTokenizer(br.readLine());
+        int sizeB = Integer.parseInt(st.nextToken());
+        int B[] = new int[sizeB];
+        st = new StringTokenizer(br.readLine());
+        for (int i = 0; i < sizeB; i++) {
+            B[i] = Integer.parseInt(st.nextToken());
         }
 
-        return answer;
+        int[] answer = sumArrays(sizeA, A, sizeB, B);
+
+        printAnswer(answer);
+
     }
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int A[] = new int[n];
-        for (int i = 0; i < n; i++) {
-            A[i] = sc.nextInt();
+    private static void printAnswer(int[] answer) {
+        for (int n : answer) {
+            System.out.print(n + " ");
         }
-        int m = sc.nextInt();
-        int B[] = new int[m];
-        for (int i = 0; i < m; i++) {
-            B[i] = sc.nextInt();
+    }
+
+    private static int[] sumArrays(int sizeA, int[] A, int sizeB, int[] B) {
+        int answer[] = new int[sizeA + sizeB];
+
+        int i = 0, j = 0, k = 0;
+        while (i < sizeA && j < sizeB) {
+            if (A[i] > B[j]) {
+                answer[k++] = B[j++];
+            } else {
+                answer[k++] = A[i++];
+            }
         }
-        for (int i : solution(n, m, A, B)) {
-            System.out.print(i + " ");
+
+        while (i < sizeA) {
+            answer[k++] = A[i++];
         }
+
+        while (j < sizeB) {
+            answer[k++] = B[j++];
+        }
+        return answer;
     }
 }
 
