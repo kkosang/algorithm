@@ -1,6 +1,6 @@
 fun main() {
     val (n, game) = readln().split(" ")
-    val players: MutableSet<String> = mutableSetOf()
+    val players: HashSet<String> = HashSet()
 
     repeat(n.toInt()) {
         val input = readln()
